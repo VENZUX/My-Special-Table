@@ -12,8 +12,8 @@ local function updateObjects()
     if not Hrp or not MissionObjects or not Mobs then return end
 
     local Start = MissionObjects:FindFirstChild("MissionStart") and MissionObjects.MissionStart:FindFirstChild("Collider")
-    local Cabbages1 = MissionObjects:FindFirstChild("Cabbages") and MissionObjects.Cabbages["1"] and MissionObjects.Cabbages["1"].Main
-    local Cabbages2 = MissionObjects:FindFirstChild("Cabbages") and MissionObjects.Cabbages["2"] and MissionObjects.Cabbages["2"].Main
+    local Cabbages1 = MissionObjects:FindFirstChild("Cabbages") and MissionObjects.Cabbages["1"] and MissionObjects.Cabbages["1"]:FindFirstChild("Main")
+    local Cabbages2 = MissionObjects:FindFirstChild("Cabbages") and MissionObjects.Cabbages["2"] and MissionObjects.Cabbages["2"]:FindFirstChild("Main")
     local BoulderStopTrigger = MissionObjects:FindFirstChild("BoulderStopTrigger")
     local BoulderTrigger = MissionObjects:FindFirstChild("BoulderTrigger")
     local CaveTrigger = MissionObjects:FindFirstChild("CaveTrigger")
