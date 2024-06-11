@@ -1,0 +1,534 @@
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+
+local function updateObjects()
+    local Hrp = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+    local MissionObjects = game.Workspace:FindFirstChild("MissionObjects")
+    local Mobs = game.Workspace:FindFirstChild("Mobs")
+    local HrpCanCollide = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+
+    local MobsNoLeft = Mobs and Mobs:GetChildren() or {}
+
+    if not Hrp or not MissionObjects or not Mobs then return end
+
+    local Start = MissionObjects:FindFirstChild("MissionStart") and MissionObjects.MissionStart:FindFirstChild("Collider")
+    local Cabbages1 = MissionObjects:FindFirstChild("Cabbages") and MissionObjects.Cabbages["1"] and MissionObjects.Cabbages["1"].Main
+    local Cabbages2 = MissionObjects:FindFirstChild("Cabbages") and MissionObjects.Cabbages["2"] and MissionObjects.Cabbages["2"].Main
+    local BoulderStopTrigger = MissionObjects:FindFirstChild("BoulderStopTrigger")
+    local BoulderTrigger = MissionObjects:FindFirstChild("BoulderTrigger")
+    local CaveTrigger = MissionObjects:FindFirstChild("CaveTrigger")
+    local TownTalkPart = MissionObjects:FindFirstChild("TownTalkPart")
+    local BridgeTrigger = MissionObjects:FindFirstChild("BridgeTrigger")
+    local CastleTrigger = MissionObjects:FindFirstChild("CastleTrigger")
+    local CannonTrigger = MissionObjects:FindFirstChild("CannonTrigger")
+    local Cage1Marker = game.Workspace:FindFirstChild("Cage1Marker") and game.Workspace.Cage1Marker:FindFirstChild("Collider")
+    local Cage2Marker = game.Workspace:FindFirstChild("Cage2Marker") and game.Workspace.Cage2Marker:FindFirstChild("Collider")
+    local TreeEntCage = game.Workspace:FindFirstChild("TreeEntCage")
+    local Pillar1 = game.Workspace:FindFirstChild("Pillar1")
+    local Pillar2 = game.Workspace:FindFirstChild("Pillar2")
+    local Pillar3 = game.Workspace:FindFirstChild("Pillar3")
+    local BOSSTreeEnt = Mobs:FindFirstChild("BOSSTreeEnt")
+    local BOSSTreeEntCollider = BOSSTreeEnt and BOSSTreeEnt:FindFirstChild("Collider")
+    local BOSSTreeEntProtected = BOSSTreeEnt and BOSSTreeEnt:FindFirstChild("Protected")
+    local Room1Trigger = MissionObjects:FindFirstChild("Room1Trigger")
+    local Room2Trigger = MissionObjects:FindFirstChild("Room2Trigger")
+    local Room3Trigger = MissionObjects:FindFirstChild("Room3Trigger")
+    local Room4Trigger = MissionObjects:FindFirstChild("Room4Trigger")
+    local WallsTrigger = MissionObjects:FindFirstChild("WallsTrigger")
+    local WallsSearchArea = MissionObjects:FindFirstChild("WallsSearchArea")
+    local WallsFinalTrigger = MissionObjects:FindFirstChild("WallsFinalTrigger")
+    local Crystal = MissionObjects and MissionObjects:FindFirstChild("Crystal") and MissionObjects.Crystal:FindFirstChild("MeshPart")
+    local TreasureMarker = game.Workspace:FindFirstChild("TreasureMarker") and game.Workspace.TreasureMarker:FindFirstChild("Collider")
+    local TempleTrigger = MissionObjects:FindFirstChild("TempleTrigger")
+    local CliffsideEndTrigger = MissionObjects:FindFirstChild("CliffsideEndTrigger")
+    local CaveSpawnTrigger = MissionObjects:FindFirstChild("CaveSpawnTrigger")
+    local PreBridgeTrigger = MissionObjects:FindFirstChild("PreBridgeTrigger")
+    local ObbyTrigger = MissionObjects:FindFirstChild("ObbyTrigger")
+    local BossTrigger = MissionObjects:FindFirstChild("BossTrigger")
+    local BossSpawnTrigger = MissionObjects:FindFirstChild("BossSpawnTrigger")
+    local VineRoomTrigger = MissionObjects:FindFirstChild("VineRoomTrigger")
+    local CheckpointTrigger = MissionObjects:FindFirstChild("CheckpointTrigger")
+    local DropTrigger = MissionObjects:FindFirstChild("DropTrigger")
+    local Slider = MissionObjects:FindFirstChild("Slider")
+    local IceBarricade = MissionObjects and MissionObjects:FindFirstChild("IceBarricade")
+    local IceBarricadePart = MissionObjects and MissionObjects:FindFirstChild("IceBarricade") and MissionObjects.IceBarricade:FindFirstChild("Part")
+    local Blocker1 = MissionObjects and MissionObjects:FindFirstChild("SpikeCheckpoints") and MissionObjects.SpikeCheckpoints:FindFirstChild("Blocker1")
+    local Blocker2 = MissionObjects and MissionObjects:FindFirstChild("SpikeCheckpoints") and MissionObjects.SpikeCheckpoints:FindFirstChild("Blocker2")
+    local Blocker3 = MissionObjects and MissionObjects:FindFirstChild("SpikeCheckpoints") and MissionObjects.SpikeCheckpoints:FindFirstChild("Blocker3")
+    local CastleGateTrigger = MissionObjects:FindFirstChild("CastleGateTrigger")
+    local IceWalls = game.Workspace:FindFirstChild("IceWall") and game.Workspace.IceWall:FindFirstChild("Ring")
+    local MissionStart = MissionObjects:FindFirstChild("MissionStart")
+    local BOSSHogRider = Mobs:FindFirstChild("BOSSHogRider")
+    local Chains = MissionObjects and MissionObjects:FindFirstChild("TowerLegs") and MissionObjects.TowerLegs:FindFirstChild("Model")
+    local ChainMob = Mobs:FindFirstChild("Model")
+    local SceneTrigger = MissionObjects:FindFirstChild("SceneTrigger")
+    local OutsideBossTrigger = MissionObjects:FindFirstChild("OutsideBossTrigger")
+    local TreeShield = game.Workspace:FindFirstChild("GreaterTreeShield")
+    local DarkTreeBoss = Mobs:FindFirstChild("CorruptedGreaterTree")
+    local DarkTreeBossProtected = DarkTreeBoss and DarkTreeBoss:FindFirstChild("Protected")
+    local DarkTreeBossCollider = DarkTreeBoss and DarkTreeBoss:FindFirstChild("Collider")
+    local IgnisTrigger = MissionObjects:FindFirstChild("IgnisTrigger")
+    local WaveStarter = MissionObjects:FindFirstChild("WaveStarter")
+    local IgnisShield = game.Workspace:FindFirstChild("IgnisShield") and game.Workspace.IgnisShield:FindFirstChild("Ring")
+    local RaidChestSilvers = game.Workspace:GetChildren()
+    local RaidChestGold = game.Workspace:GetChildren() 
+    local VolcanicChestTowers = game.Workspace:GetChildren()
+    local ChestBaseName = "ChestBase"
+    local MinibossExit = MissionObjects:FindFirstChild("MinibossExit")
+    local Area1Trigger = MissionObjects:FindFirstChild("Area1Trigger")
+    local Area3Trigger = MissionObjects:FindFirstChild("Area3Trigger")
+    local FanButton = MissionObjects:FindFirstChild("CheckpointGates") and MissionObjects.CheckpointGates:FindFirstChild("Checkpoint4") and MissionObjects.CheckpointGates.Checkpoint4:FindFirstChild("VentButton") and MissionObjects.CheckpointGates.Checkpoint4.VentButton:FindFirstChild("FinishRing")
+    local DavyJones = Mobs:FindFirstChild("DavyJones")
+    local DavyJonesCollider = DavyJones and DavyJones:FindFirstChild("Collider")
+    local DavyJonesProtected = DavyJones and DavyJones:FindFirstChild("Protected")
+    local DavyJonesKrakenArm = Mobs:FindFirstChild("KrakenArm")
+    local Map = MissionObjects:FindFirstChild("CheckpointGates") and MissionObjects.CheckpointGates:FindFirstChild("Checkpoint1") and MissionObjects.CheckpointGates.Checkpoint1:FindFirstChild("FinishRing")
+    local Checkpoint1 = MissionObjects:FindFirstChild("Checkpoints") and MissionObjects.Checkpoints:FindFirstChild("Checkpoint1")
+    local Checkpoint2 = MissionObjects:FindFirstChild("Checkpoints") and MissionObjects.Checkpoints:FindFirstChild("Checkpoint2")
+    local Checkpoint3 = MissionObjects:FindFirstChild("Checkpoints") and MissionObjects.Checkpoints:FindFirstChild("Checkpoint3")
+    local Checkpoint4 = MissionObjects:FindFirstChild("Checkpoints") and MissionObjects.Checkpoints:FindFirstChild("Checkpoint4")
+    local Checkpoint5 = MissionObjects:FindFirstChild("Checkpoints") and MissionObjects.Checkpoints:FindFirstChild("Checkpoint5")
+    local Checkpoint6 = MissionObjects:FindFirstChild("Checkpoints") and MissionObjects.Checkpoints:FindFirstChild("Checkpoint6")
+    local Checkpoint7 = MissionObjects:FindFirstChild("Checkpoints") and MissionObjects.Checkpoints:FindFirstChild("Checkpoint7")
+    local Checkpoint8 = MissionObjects:FindFirstChild("Checkpoints") and MissionObjects.Checkpoints:FindFirstChild("Checkpoint8")
+    local Checkpoint9 = MissionObjects:FindFirstChild("Checkpoints") and MissionObjects.Checkpoints:FindFirstChild("Checkpoint9")
+    local DestroyObstacleFunnel = MissionObjects:FindFirstChild("DestroyObstacleFunnel")
+    local StartWaveDefense = MissionObjects:FindFirstChild("StartWaveDefense")
+    local AtlanticChest = game.Workspace:GetChildren()
+    local Trigger1 = MissionObjects:FindFirstChild("Trigger1")
+    local Trigger2 = MissionObjects:FindFirstChild("Trigger2")
+    local Trigger3 = MissionObjects:FindFirstChild("Trigger3")
+    local BossCutsceneTrigger = MissionObjects:FindFirstChild("BossCutsceneTrigger")
+    local ObbyTrigger3 = MissionObjects:FindFirstChild("CheckpointGates") and MissionObjects.CheckpointGates:FindFirstChild("Checkpoint3") and MissionObjects.CheckpointGates.Checkpoint3:FindFirstChild("ObbyTrigger")
+    local ObbyTrigger5 = MissionObjects:FindFirstChild("CheckpointGates") and MissionObjects.CheckpointGates:FindFirstChild("Checkpoint5") and MissionObjects.CheckpointGates.Checkpoint5:FindFirstChild("ObbyTrigger")
+    local ObbyTrigger7 = MissionObjects:FindFirstChild("CheckpointGates") and MissionObjects.CheckpointGates:FindFirstChild("Checkpoint7") and MissionObjects.CheckpointGates.Checkpoint7:FindFirstChild("ObbyTrigger")
+    local SentryTrigger1 = MissionObjects:FindFirstChild("SentryTrigger1")
+    local SentryTrigger2 = MissionObjects:FindFirstChild("SentryTrigger2")
+    local FloorTrigger = MissionObjects:FindFirstChild("FloorTrigger")
+    local TopElevatorTrigger = MissionObjects:FindFirstChild("TopElevatorTrigger")
+    local MiddleElevatorTrigger = MissionObjects:FindFirstChild("MiddleElevatorTrigger")
+    local BottomElevatorTrigger = MissionObjects:FindFirstChild("BottomElevatorTrigger")
+    local InfTowerNext = game.Workspace:FindFirstChild("LobbyTeleport") and game.Workspace.LobbyTeleport:FindFirstChild("Interaction")
+
+    if InfTowerNext then
+        InfTowerNext.CFrame = Hrp.CFrame
+    end
+
+    if ObbyTrigger7 then
+        ObbyTrigger7.CFrame = Hrp.CFrame
+    end
+
+    if ObbyTrigger3 then
+        ObbyTrigger3.CFrame = Hrp.CFrame
+    end
+
+    if BottomElevatorTrigger then
+        BottomElevatorTrigger.CFrame = Hrp.CFrame
+    end
+
+    if MiddleElevatorTrigger then
+        MiddleElevatorTrigger.CFrame = Hrp.CFrame
+    end
+
+    if TopElevatorTrigger then
+        TopElevatorTrigger.CFrame = Hrp.CFrame
+    end
+
+    if FloorTrigger then
+        FloorTrigger.CFrame = Hrp.CFrame
+    end
+
+    if SentryTrigger2 then
+        SentryTrigger2.CFrame = Hrp.CFrame
+    end
+
+    if SentryTrigger1 then
+        SentryTrigger1.CFrame = Hrp.CFrame
+    end
+
+    if ObbyTrigger5 then
+        ObbyTrigger5.CFrame = Hrp.CFrame
+    end
+
+    if BossCutsceneTrigger then
+        BossCutsceneTrigger.CFrame = Hrp.CFrame
+    end
+
+    if Trigger1 then
+        Trigger1.CFrame = Hrp.CFrame
+    end
+
+    if Trigger2 then
+        Trigger2.CFrame = Hrp.CFrame
+    end
+
+    if Trigger3 then
+        Trigger3.CFrame = Hrp.CFrame
+    end
+
+
+    if HrpCanCollide then
+       HrpCanCollide.CanCollide = false
+    end
+
+    for _, chest in ipairs(AtlanticChest) do
+         if chest.Name == "AtlanticChest" then
+           local ChestBase = chest:FindFirstChild(ChestBaseName)
+        if ChestBase then
+            ChestBase.CFrame = Hrp.CFrame
+           end
+      end
+   end
+
+    if StartWaveDefense then
+        StartWaveDefense.CFrame = Hrp.CFrame
+    end
+
+    if DestroyObstacleFunnel then
+        DestroyObstacleFunnel.CFrame = Hrp.CFrame
+    end
+
+    if Checkpoint9 then
+        Checkpoint9.CFrame = Hrp.CFrame
+    end
+
+    if Checkpoint8 then
+        Checkpoint8.CFrame = Hrp.CFrame
+    end
+
+    if Checkpoint7 then
+        Checkpoint7.CFrame = Hrp.CFrame
+    end
+
+    if Checkpoint6 then
+        Checkpoint6.CFrame = Hrp.CFrame
+    end
+
+    if Checkpoint5 then
+        Checkpoint5.CFrame = Hrp.CFrame
+    end
+
+    if Checkpoint4 then
+        Checkpoint4.CFrame = Hrp.CFrame
+    end
+
+    if Checkpoint3 then
+        Checkpoint3.CFrame = Hrp.CFrame
+    end
+
+    if Checkpoint2 then
+        Checkpoint2.CFrame = Hrp.CFrame
+    end
+
+    if Checkpoint1 then
+        Checkpoint1.CFrame = Hrp.CFrame
+    end
+
+    if Map then
+        Map.CFrame = Hrp.CFrame
+    end
+
+    if DavyJonesKrakenArm and DavyJonesCollider then
+        DavyJonesCollider.Name = "Protected"
+    end
+
+    if not DavyJonesKrakenArm and DavyJonesProtected then
+        DavyJonesProtected.Name = "Collider"
+    end
+
+    if FanButton then
+        FanButton.CFrame = Hrp.CFrame
+    end
+
+    if Area3Trigger then
+        Area3Trigger.CFrame = Hrp.CFrame
+    end
+
+    if Area1Trigger then
+        Area1Trigger.CFrame = Hrp.CFrame
+    end
+
+    if MinibossExit then
+        MinibossExit.Size = Vector3.new(500,500,500)
+        wait(1)
+        MinibossExit.Size = Vector3.new(1000,1000,1000)
+    end
+
+    for _, chest in ipairs(RaidChestGold) do
+        if chest.Name == "RaidChestGold" then
+           local ChestBase = chest:FindFirstChild(ChestBaseName)
+         if ChestBase then
+            ChestBase.CFrame = Hrp.CFrame
+        end
+       end
+     end
+
+    for _, chest in ipairs(RaidChestSilvers) do
+        if chest.Name == "RaidChestSilver" then
+           local ChestBase = chest:FindFirstChild(ChestBaseName)
+         if ChestBase then
+            ChestBase.CFrame = Hrp.CFrame
+        end
+       end
+     end
+
+    for _, chest in ipairs(VolcanicChestTowers) do
+         if chest.Name == "VolcanicChestTower" then
+           local ChestBase = chest:FindFirstChild(ChestBaseName)
+        if ChestBase then
+            ChestBase.CFrame = Hrp.CFrame
+           end
+      end
+   end
+
+    if IgnisShield then
+        Hrp.CFrame = IgnisShield.CFrame
+    end
+
+    if WaveStarter then
+        WaveStarter.CFrame = Hrp.CFrame
+    end
+
+    if IgnisTrigger then
+        IgnisTrigger.CFrame = Hrp.CFrame
+    end
+
+    if DarkTreeBossCollider and TreeShield then
+        DarkTreeBossCollider.Name = "Protected"
+    end
+
+    if DarkTreeBossProtected and not TreeShield then
+        DarkTreeBossProtected.Name = "Collider"
+    end
+
+    if OutsideBossTrigger then
+        OutsideBossTrigger.CFrame = Hrp.CFrame
+    end
+
+    if SceneTrigger then
+        SceneTrigger.CFrame = Hrp.CFrame
+    end
+
+    if chainMobExists and not ChainMob then
+        BOSSHogRider.Protected.Name = "Collider"
+    end
+
+    if BOSSHogRider and Chains then
+        for _, chain in ipairs(Chains:GetChildren()) do
+            if chain.Name:lower() == "hitbox" then
+                chain.Name = "Collider"
+                Chains.Parent = Mobs
+                BOSSHogRider.Collider.Name = "Protected"
+            end
+        end
+    end
+
+    chainMobExists = ChainMob ~= nil
+
+    if MissionStart then
+        for _, part in ipairs(MissionStart:GetChildren()) do
+            if part.Name == "Part" then
+                part.CFrame = Hrp.CFrame
+                part.CanCollide = false
+            end
+        end
+    end
+
+    if MissionStart then
+           for _, part in ipairs(MissionStart:GetChildren()) do
+               if part.Name == "Part" then
+               part.CFrame = Hrp.CFrame
+               part.CanCollide = false
+           end
+        end
+    end
+
+    if IceWalls then
+        Hrp.CFrame = IceWalls.CFrame
+    end
+
+    if CastleGateTrigger then
+        CastleGateTrigger.CFrame = Hrp.CFrame
+    end
+
+    if Blocker3 then
+          Blocker3.Part.Name = "Collider"
+          Blocker3.Parent = Mobs
+    end
+
+    if Blocker2 then
+          Blocker2.Part.Name = "Collider"
+          Blocker2.Parent = Mobs
+    end
+
+    if Blocker1 then
+          Blocker1.Part.Name = "Collider"
+          Blocker1.Parent = Mobs
+    end
+
+    if Slider then
+        Slider.CFrame = Hrp.CFrame
+    end
+
+    if DropTrigger then
+        DropTrigger.CFrame = Hrp.CFrame
+    end
+
+    if CheckpointTrigger then
+        CheckpointTrigger.CFrame = Hrp.CFrame
+    end
+
+    if VineRoomTrigger then
+        VineRoomTrigger.CFrame = Hrp.CFrame
+    end
+
+    if BossSpawnTrigger then
+        BossSpawnTrigger.CFrame = Hrp.CFrame
+    end
+
+    if BossTrigger then
+        BossTrigger.CFrame = Hrp.CFrame
+    end
+
+    if ObbyTrigger then
+        ObbyTrigger.CFrame = Hrp.CFrame
+    end
+
+    if PreBridgeTrigger then
+        PreBridgeTrigger.CFrame = Hrp.CFrame
+    end
+
+    if CaveSpawnTrigger then
+        CaveSpawnTrigger.CFrame = Hrp.CFrame
+    end
+
+    if CliffsideEndTrigger then
+        CliffsideEndTrigger.CFrame = Hrp.CFrame
+    end
+
+    if TempleTrigger then
+        TempleTrigger.CFrame = Hrp.CFrame
+    end
+
+    if TreasureMarker then
+        TreasureMarker.CFrame = Hrp.CFrame
+    end
+
+    if #MobsNoLeft == 0 then
+        if Crystal then
+            wait(3)
+            Hrp.CFrame = Crystal.CFrame
+            wait(2)
+            Hrp.CFrame = Crystal.CFrame * CFrame.new(0,300,0)
+        end
+    end
+
+    if WallsFinalTrigger then
+        WallsFinalTrigger.CFrame = Hrp.CFrame
+    end
+
+    if WallsSearchArea then
+        WallsSearchArea.CFrame = Hrp.CFrame
+    end
+
+   if WallsTrigger then
+       WallsTrigger.CFrame = Hrp.CFrame
+       wait(0.5)
+       WallsTrigger.CFrame = Hrp.CFrame * CFrame.new(0, 300, 0)
+    end
+
+    if Room4Trigger then
+        Room4Trigger.CFrame = Hrp.CFrame
+    end
+
+    if Room3Trigger then
+        Room3Trigger.CFrame = Hrp.CFrame
+    end
+
+    if Room2Trigger then
+        Room2Trigger.CFrame = Hrp.CFrame
+    end
+
+    if Room1Trigger then
+        Room1Trigger.CFrame = Hrp.CFrame
+    end
+
+    if not TreeEntCage and BOSSTreeEntProtected then
+        BOSSTreeEntProtected.Name = "Collider"
+    end
+
+    if TreeEntCage and BOSSTreeEntCollider then
+        BOSSTreeEntCollider.Name = "Protected"
+    
+        if Pillar1 and Pillar1:FindFirstChild("Base") then
+            Pillar1.Base.Name = "Collider"
+            Pillar1.Parent = Mobs
+        end
+
+        if Pillar2 and Pillar2:FindFirstChild("Base") then
+            Pillar2.Base.Name = "Collider"
+            Pillar2.Parent = Mobs
+        end
+
+        if Pillar3 and Pillar3:FindFirstChild("Base") then
+            Pillar3.Base.Name = "Collider"
+            Pillar3.Parent = Mobs
+        end
+    end
+
+    if Cage2Marker then
+        Cage2Marker.CFrame = Hrp.CFrame
+    end
+
+    if Cage1Marker then
+        Cage1Marker.CFrame = Hrp.CFrame
+    end
+
+    if CannonTrigger then
+        CannonTrigger.CFrame = Hrp.CFrame
+    end
+
+    if CastleTrigger then
+        CastleTrigger.CFrame = Hrp.CFrame
+    end
+
+    if BridgeTrigger then
+        BridgeTrigger.CFrame = Hrp.CFrame
+    end
+
+    if TownTalkPart then
+        TownTalkPart.CFrame = Hrp.CFrame
+    end
+
+    if BoulderTrigger then
+        BoulderTrigger.CFrame = Hrp.CFrame
+    end
+
+    if BoulderStopTrigger then
+        BoulderStopTrigger.CFrame = Hrp.CFrame
+    end
+
+    if Start then
+        Start.CFrame = Hrp.CFrame
+        Start.CanCollide = false
+    end
+
+    if Cabbages1 then
+        Cabbages1.CFrame = Hrp.CFrame
+    end
+
+    if Cabbages2 then
+        Cabbages2.CFrame = Hrp.CFrame
+    end
+
+    if CaveTrigger then
+        CaveTrigger.CFrame = Hrp.CFrame
+        CaveTrigger.Size = Vector3.new(10,10,10)
+        wait(1)
+        CaveTrigger.Size = Vector3.new(15,15,15)
+    end
+end
+
+RunService.Heartbeat:Connect(function()
+    updateObjects()
+end)
