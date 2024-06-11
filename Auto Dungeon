@@ -107,10 +107,10 @@ local function updateObjects()
     local MiddleElevatorTrigger = MissionObjects:FindFirstChild("MiddleElevatorTrigger")
     local BottomElevatorTrigger = MissionObjects:FindFirstChild("BottomElevatorTrigger")
     local InfTowerNext = game.Workspace:FindFirstChild("LobbyTeleport") and game.Workspace.LobbyTeleport:FindFirstChild("Interaction")
-    local Cabbage1 = MissionObjects:FindFirstChild("Cabbages") and MissionObjects.Cabbages:FindFirstChild1("1") and MissionObjects.Cabbages["1"]:FindFirstChild("Main")
+    local Cabbage1 = MissionObjects:FindFirstChild("Cabbages") and MissionObjects.Cabbages[1].Main
 
     if Cabbage1 then
-        Cabbage1.CFrame = Hrp.CFrame
+        Cabbage1.Size = Vector3.new(10,10,10)
     end
 
     if InfTowerNext then
